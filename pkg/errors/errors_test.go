@@ -7,6 +7,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func Test_Error(t *testing.T) {
+	expected := InvalidBody()
+	err := Error{Err: "invalid body"}
+
+	t.Run("ErrorString", func(t *testing.T) {
+		actual := err.Error()
+
+		assert.Equal(t, expected, actual)
+	})
+}
+
 func Test_EntityNotFound(t *testing.T) {
 	expected := &Error{
 		StatusCode: http.StatusNotFound,
