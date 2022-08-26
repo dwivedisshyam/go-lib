@@ -9,12 +9,12 @@ import (
 
 func Test_Error(t *testing.T) {
 	expected := InvalidBody()
-	err := Error{Err: "invalid body"}
 
 	t.Run("ErrorString", func(t *testing.T) {
+		err := Error{Err: "invalid body"}
 		actual := err.Error()
 
-		assert.Equal(t, expected, actual)
+		assert.Equal(t, expected.Error(), actual)
 	})
 }
 
