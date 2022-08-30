@@ -1,37 +1,63 @@
 package errors
 
 import (
-	"fmt"
 	"net/http"
 )
 
 type Error struct {
-	Err        string `json:"error"`
+	Message    string `json:"error"`
 	Code       string `json:"code"`
 	StatusCode int    `json:"-"`
 }
 
 func (err Error) Error() string {
-	return err.Err
+	return err.Message
 }
 
-func EntityNotFound(entity, id string) *Error {
+func NotFound(message string) *Error {
 	return &Error{
-		Err:        fmt.Sprintf("%s not found with id: %s", entity, id),
+		Message:    message,
 		StatusCode: http.StatusNotFound,
+		Code:       http.StatusText(http.StatusNotFound),
 	}
 }
 
-func InvalidBody() *Error {
+func Unexpected(message string) *Error {
 	return &Error{
-		Err:        "invalid body",
+		Message:    message,
+		StatusCode: http.StatusInternalServerError,
+		Code:       http.StatusText(http.StatusInternalServerError),
+	}
+}
+
+func BadRequest(message string) *Error {
+	return &Error{
+		Message:    message,
 		StatusCode: http.StatusBadRequest,
+		Code:       http.StatusText(http.StatusBadRequest),
 	}
 }
 
-func EntityAlreadyExist(entity string) *Error {
+func Validation(message string) *Error {
 	return &Error{
-		Err:        fmt.Sprintf("%s already exist", entity),
-		StatusCode: http.StatusConflict,
+		Message:    message,
+		StatusCode: http.StatusUnprocessableEntity,
+		Code:       http.StatusText(http.StatusUnprocessableEntity),
+	}
+}
+
+func Unauthenticated(message string) *Error {
+	return &Error{
+		Message:    message,
+		StatusCode: http.StatusUnauthorized,
+		Code:       http.StatusText(http.StatusUnauthorized),
+	}
+}
+
+func Unauthorized(message string) *Error {
+	return &Error{
+		Message:    message,
+		StatusCode: http.StatusForbidden,
+		Code:       http.StatusText(http.StatusForbidden),
 	}
 }

@@ -8,48 +8,90 @@ import (
 )
 
 func Test_Error(t *testing.T) {
-	expected := InvalidBody()
+	expected := BadRequest("invalid body")
 
 	t.Run("ErrorString", func(t *testing.T) {
-		err := Error{Err: "invalid body"}
+		err := Error{Message: "invalid body"}
 		actual := err.Error()
 
 		assert.Equal(t, expected.Error(), actual)
 	})
 }
 
-func Test_EntityNotFound(t *testing.T) {
+func Test_NotFound(t *testing.T) {
 	expected := &Error{
 		StatusCode: http.StatusNotFound,
-		Err:        "user not found with id: 123",
+		Code:       http.StatusText(http.StatusNotFound),
+		Message:    "user",
 	}
 
-	t.Run("EntityNotFound", func(t *testing.T) {
-		actual := EntityNotFound("user", "123")
+	t.Run("NotFound", func(t *testing.T) {
+		actual := NotFound("user")
 		assert.Equal(t, expected, actual)
 	})
 }
 
-func Test_EntityAlreadyExist(t *testing.T) {
+func Test_Unexpected(t *testing.T) {
 	expected := &Error{
-		StatusCode: http.StatusConflict,
-		Err:        "user already exist",
+		StatusCode: http.StatusInternalServerError,
+		Code:       http.StatusText(http.StatusInternalServerError),
+		Message:    "db error",
 	}
 
-	t.Run("EntityAlreadyExist", func(t *testing.T) {
-		actual := EntityAlreadyExist("user")
+	t.Run("UnexpectedErr", func(t *testing.T) {
+		actual := Unexpected("db error")
 		assert.Equal(t, expected, actual)
 	})
 }
 
-func Test_InvalidBody(t *testing.T) {
+func Test_BadRequest(t *testing.T) {
 	expected := &Error{
 		StatusCode: http.StatusBadRequest,
-		Err:        "invalid body",
+		Code:       http.StatusText(http.StatusBadRequest),
+		Message:    "invalid body",
 	}
 
-	t.Run("InvalidBody", func(t *testing.T) {
-		actual := InvalidBody()
+	t.Run("BadRequest", func(t *testing.T) {
+		actual := BadRequest("invalid body")
+		assert.Equal(t, expected, actual)
+	})
+}
+
+func Test_Validation(t *testing.T) {
+	expected := &Error{
+		StatusCode: http.StatusUnprocessableEntity,
+		Code:       http.StatusText(http.StatusUnprocessableEntity),
+		Message:    "invalid parameter",
+	}
+
+	t.Run("Validation", func(t *testing.T) {
+		actual := Validation("invalid parameter")
+		assert.Equal(t, expected, actual)
+	})
+}
+
+func Test_Unauthenticated(t *testing.T) {
+	expected := &Error{
+		StatusCode: http.StatusUnauthorized,
+		Code:       http.StatusText(http.StatusUnauthorized),
+		Message:    "unauthenticated user",
+	}
+
+	t.Run("Unauthenticated", func(t *testing.T) {
+		actual := Unauthenticated("unauthenticated user")
+		assert.Equal(t, expected, actual)
+	})
+}
+
+func Test_Unauthorized(t *testing.T) {
+	expected := &Error{
+		StatusCode: http.StatusForbidden,
+		Code:       http.StatusText(http.StatusForbidden),
+		Message:    "unauthorized user",
+	}
+
+	t.Run("Unauthorized", func(t *testing.T) {
+		actual := Unauthorized("unauthorized user")
 		assert.Equal(t, expected, actual)
 	})
 }
