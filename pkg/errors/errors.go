@@ -14,7 +14,7 @@ func (err Error) Error() string {
 	return err.Message
 }
 
-func NotFound(message string) *Error {
+func NotFound(message string) error {
 	return &Error{
 		Message:    message,
 		StatusCode: http.StatusNotFound,
@@ -22,7 +22,7 @@ func NotFound(message string) *Error {
 	}
 }
 
-func Unexpected(message string) *Error {
+func Unexpected(message string) error {
 	return &Error{
 		Message:    message,
 		StatusCode: http.StatusInternalServerError,
@@ -30,7 +30,7 @@ func Unexpected(message string) *Error {
 	}
 }
 
-func BadRequest(message string) *Error {
+func BadRequest(message string) error {
 	return &Error{
 		Message:    message,
 		StatusCode: http.StatusBadRequest,
@@ -38,7 +38,7 @@ func BadRequest(message string) *Error {
 	}
 }
 
-func Validation(message string) *Error {
+func Validation(message string) error {
 	return &Error{
 		Message:    message,
 		StatusCode: http.StatusUnprocessableEntity,
@@ -46,7 +46,7 @@ func Validation(message string) *Error {
 	}
 }
 
-func Unauthenticated(message string) *Error {
+func Unauthenticated(message string) error {
 	return &Error{
 		Message:    message,
 		StatusCode: http.StatusUnauthorized,
@@ -54,7 +54,7 @@ func Unauthenticated(message string) *Error {
 	}
 }
 
-func Unauthorized(message string) *Error {
+func Unauthorized(message string) error {
 	return &Error{
 		Message:    message,
 		StatusCode: http.StatusForbidden,
