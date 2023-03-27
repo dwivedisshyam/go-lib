@@ -5,7 +5,7 @@ import (
 )
 
 type Error struct {
-	Message    string `json:"error"`
+	Message    string `json:"message"`
 	Code       string `json:"code"`
 	StatusCode int    `json:"-"`
 }
