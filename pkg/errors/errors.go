@@ -5,59 +5,56 @@ import (
 )
 
 type Error struct {
-	Message    string `json:"message"`
-	Code       string `json:"code"`
-	StatusCode int    `json:"-"`
+	Message string `json:"message"`
+	Code    int    `json:"-"`
 }
 
 func (err Error) Error() string {
 	return err.Message
 }
 
+func (err Error) StatusCode() int {
+	return err.Code
+}
+
 func NotFound(message string) error {
 	return &Error{
-		Message:    message,
-		StatusCode: http.StatusNotFound,
-		Code:       http.StatusText(http.StatusNotFound),
+		Message: message,
+		Code:    http.StatusNotFound,
 	}
 }
 
 func Unexpected(message string) error {
 	return &Error{
-		Message:    message,
-		StatusCode: http.StatusInternalServerError,
-		Code:       http.StatusText(http.StatusInternalServerError),
+		Message: message,
+		Code:    http.StatusInternalServerError,
 	}
 }
 
 func BadRequest(message string) error {
 	return &Error{
-		Message:    message,
-		StatusCode: http.StatusBadRequest,
-		Code:       http.StatusText(http.StatusBadRequest),
+		Message: message,
+		Code:    http.StatusBadRequest,
 	}
 }
 
 func Validation(message string) error {
 	return &Error{
-		Message:    message,
-		StatusCode: http.StatusUnprocessableEntity,
-		Code:       http.StatusText(http.StatusUnprocessableEntity),
+		Message: message,
+		Code:    http.StatusUnprocessableEntity,
 	}
 }
 
 func Unauthenticated(message string) error {
 	return &Error{
-		Message:    message,
-		StatusCode: http.StatusUnauthorized,
-		Code:       http.StatusText(http.StatusUnauthorized),
+		Message: message,
+		Code:    http.StatusUnauthorized,
 	}
 }
 
 func Unauthorized(message string) error {
 	return &Error{
-		Message:    message,
-		StatusCode: http.StatusForbidden,
-		Code:       http.StatusText(http.StatusForbidden),
+		Message: message,
+		Code:    http.StatusForbidden,
 	}
 }

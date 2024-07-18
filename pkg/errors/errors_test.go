@@ -20,8 +20,7 @@ func Test_Error(t *testing.T) {
 
 func Test_NotFound(t *testing.T) {
 	expected := &Error{
-		StatusCode: http.StatusNotFound,
-		Code:       http.StatusText(http.StatusNotFound),
+		Code: http.StatusNotFound,
 		Message:    "user",
 	}
 
@@ -33,8 +32,7 @@ func Test_NotFound(t *testing.T) {
 
 func Test_Unexpected(t *testing.T) {
 	expected := &Error{
-		StatusCode: http.StatusInternalServerError,
-		Code:       http.StatusText(http.StatusInternalServerError),
+		Code: http.StatusInternalServerError,
 		Message:    "db error",
 	}
 
@@ -46,8 +44,7 @@ func Test_Unexpected(t *testing.T) {
 
 func Test_BadRequest(t *testing.T) {
 	expected := &Error{
-		StatusCode: http.StatusBadRequest,
-		Code:       http.StatusText(http.StatusBadRequest),
+		Code: http.StatusBadRequest,
 		Message:    "invalid body",
 	}
 
@@ -59,8 +56,7 @@ func Test_BadRequest(t *testing.T) {
 
 func Test_Validation(t *testing.T) {
 	expected := &Error{
-		StatusCode: http.StatusUnprocessableEntity,
-		Code:       http.StatusText(http.StatusUnprocessableEntity),
+		Code: http.StatusUnprocessableEntity,
 		Message:    "invalid parameter",
 	}
 
@@ -72,8 +68,7 @@ func Test_Validation(t *testing.T) {
 
 func Test_Unauthenticated(t *testing.T) {
 	expected := &Error{
-		StatusCode: http.StatusUnauthorized,
-		Code:       http.StatusText(http.StatusUnauthorized),
+		Code: http.StatusUnauthorized,
 		Message:    "unauthenticated user",
 	}
 
@@ -85,8 +80,7 @@ func Test_Unauthenticated(t *testing.T) {
 
 func Test_Unauthorized(t *testing.T) {
 	expected := &Error{
-		StatusCode: http.StatusForbidden,
-		Code:       http.StatusText(http.StatusForbidden),
+		Code: http.StatusForbidden,
 		Message:    "unauthorized user",
 	}
 
