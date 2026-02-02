@@ -1,4 +1,4 @@
-module github.com/dwivedisshyam/go-lib
+module logiclines.dev/go-lib
 
 go 1.18
 
